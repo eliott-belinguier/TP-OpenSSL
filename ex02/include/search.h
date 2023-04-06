@@ -4,7 +4,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-ssize_t dict_search(const char *file_path, uint8_t *hash,
-    size_t hash_len, int (*hash_func)(void *data, size_t len, uint8_t *hash));
+typedef struct {
+    size_t hash_len;
+    uint8_t *hash;
+    int (*hash_func)(void *data, size_t len, uint8_t *hash);
+} search_option_t;
+
+ssize_t dict_search(const char *file_path, search_option_t *option, char **line);
 
 #endif // _EX02_SEARCH_H_
