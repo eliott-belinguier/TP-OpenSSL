@@ -27,12 +27,12 @@ ssize_t __tp_dict_search(const char *file_path, uint8_t *hash,
         return -1;
     while ((line_len = getline(&line, &n, file)) > 0) {
         ++line_count;
-        if (line_len > 1) {
-            if (hash_func(line, line_len - 1, file_hash) == -1)
-                return -1;
-            if (memcmp(hash, file_hash, hash_len) == 0)
-                return line_count;
-        }
+        if (line_len < 2)
+            continue;
+        if (hash_func(line, line_len - 1, file_hash) == -1)
+            return -1;
+        if (memcmp(hash, file_hash, hash_len) == 0)
+            return line_count;
     }
     return -2;
 }
