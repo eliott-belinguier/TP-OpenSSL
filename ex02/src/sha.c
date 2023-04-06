@@ -32,7 +32,7 @@ int __tp_hash_sha256_from_str(char const *str, uint8_t *hash)
         errno = EINVAL;
         return -1;
     }
-    for (size_t i = 0; str[i]; i++) {
+    for (size_t i = 0; i < SHA256_DIGEST_LENGTH; i++) {
         if (convert_str_to_byte(str + i * 2, hash + i))
             return -1;
     }
